@@ -1,0 +1,30 @@
+--- a/arch/arm/boot/dts/sun8i-h2-plus-orangepi-zero.dts
++++ b/arch/arm/boot/dts/sun8i-h2-plus-orangepi-zero.dts
+@@ -50,6 +60,7 @@
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/input/input.h>
+ #include <dt-bindings/pinctrl/sun4i-a10.h>
++#include <dt-bindings/thermal/thermal.h>
+ 
+ / {
+ 	model = "Xunlong Orange Pi Zero";
+@@ -107,6 +150,19 @@
+ 		reset-gpios = <&r_pio 0 7 GPIO_ACTIVE_LOW>;
+ 		post-power-on-delay-ms = <200>;
+ 	};
++
++	soc {
++		ths: thermal-sensor@1c25000 {
++			compatible = "allwinner,sun8i-h3-ths";
++			reg = <0x01c25000 0x100>;
++			interrupts = <GIC_SPI 31 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_THS>, <&ccu CLK_THS>;
++			clock-names = "bus", "mod";
++			resets = <&ccu RST_BUS_THS>;
++			#io-channel-cells = <0>;
++			#thermal-sensor-cells = <0>;
++		};
++	};
+ };
+ 
+ &ehci0 {
