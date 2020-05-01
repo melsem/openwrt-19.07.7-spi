@@ -115,7 +115,7 @@ define Device/sun8i-h2-plus-orangepi-zero
 	kmod-cpufreq-dt \
 	kmod-sound-core \
 	kmod-sound-soc-sun4i-codec \
-	kmod-sound-soc-sun8i-codec-analog /
+	kmod-sound-soc-sun8i-codec-analog \
 	boot-config-spi
   SUPPORTED_DEVICES:=xunlong,orangepi-zero
   SUNXI_DTS:=sun8i-h2-plus-orangepi-zero
@@ -131,7 +131,7 @@ define Device/sun8i-h2-plus-orangepi-zero-lts
 	kmod-cpufreq-dt \
 	kmod-sound-core \
 	kmod-sound-soc-sun4i-codec \
-	kmod-sound-soc-sun8i-codec-analog /
+	kmod-sound-soc-sun8i-codec-analog \
 	boot-config-spi
   SUPPORTED_DEVICES:=xunlong,orangepi-zero-lts
   SUNXI_DTS:=sun8i-h2-plus-orangepi-zero-lts
@@ -147,7 +147,7 @@ define Device/sun8i-h2-plus-orangepi-r1
 	kmod-cpufreq-dt \
 	kmod-sound-core \
 	kmod-sound-soc-sun4i-codec \
-	kmod-sound-soc-sun8i-codec-analog /
+	kmod-sound-soc-sun8i-codec-analog \
 	boot-config-spi
   SUPPORTED_DEVICES:=xunlong,orangepi-r1
   SUNXI_DTS:=sun8i-h2-plus-orangepi-r1
