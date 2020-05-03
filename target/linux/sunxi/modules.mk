@@ -194,7 +194,7 @@ define KernelPackage/thermal-sunxi
   TITLE:=Generic Thermal sysfs driver
   DEPENDS:=@TARGET_sunxi +kmod-hwmon-core
   KCONFIG:= \
-	CONFIG_THERMAL \
+	CONFIG_THERMAL=m \
 	CONFIG_THERMAL_DEFAULT_GOV_USER_SPACE=n \
 	CONFIG_THERMAL_GOV_USER_SPACE=n \
 	CONFIG_THERMAL_EMULATION=n
@@ -314,14 +314,9 @@ define KernelPackage/sunxi-i2c
   SUBMENU:=I2C support
   TITLE:=Generic sunxi-i2c driver
   DEPENDS:=@TARGET_sunxi +kmod-i2c-core
-  KCONFIG:=CONFIG_I2C_SUN6I_P2WI=y \
-	CONFIG_I2C_MV64XXX=y \
-	CONFIG_I2C_BOARDINFO=y \
-	CONFIG_I2C_CHARDEV=y \
-	CONFIG_I2C_COMPAT=y \
-	CONFIG_I2C_HELPER_AUTO=y
+  KCONFIG:=CONFIG_I2C_SUN6I_P2WI=m \
+	CONFIG_I2C_MV64XXX=m
   FILES:= \
-	$(LINUX_DIR)/drivers/i2c/busses/i2c-sun6i-p2wi.ko \
 	$(LINUX_DIR)/drivers/i2c/busses/i2c-mv64xxx.ko
   AUTOLOAD:=$(call AutoProbe,i2c-mv64xxx)
 endef
