@@ -1,28 +1,28 @@
 The develope "tr4bl3" (http://4pda.ru/forum/index.php?showuser=1177645).
 -------------------
-Example write in spi-flash for opi-R1.
+Example write in spi-flash 16MB for orangepi-zero.
 ----
-1. Download the usual firmware image for MMС: https://downloads.openwrt.org/releases/19.07.2/targets/sunxi/cortexa7/openwrt-19.07.2-sunxi-cortexa7-sun8i-h2-plus-orangepi-r1-ext4-sdcard.img.gz
+1. Download the usual firmware image for MMС: https://downloads.openwrt.org/releases/19.07.7/targets/sunxi/cortexa7/openwrt-19.07.7-sunxi-cortexa7-sun8i-h2-plus-orangepi-zero-ext4-sdcard.img.gz
 
 2. Record it on MMС.
 
 3. On the MMC flash drive, in the recorded firmware image, in the /boot folder, delete the dtb file.
 
-4. Download the dtb file to /boot folder:  (https://github.com/melsem/openwrt-19.07.2-spi/raw/master/sun8i-h2-plus-orangepi-r1.dtb)
+4. Download the dtb file to /boot folder:  (https://github.com/melsem/openwrt-19.07.7-spi/raw/master/sun8i-h2-plus-orangepi-zero-dtb)
 And rename it to dtb.
 
 5. Insert this MMC flash drive into orangepi and apply power.
 
 6. And on orangepi do it:
- * Download the bootloader file to /tmp: (https://github.com/melsem/openwrt-19.07.2-spi/raw/master/uboot_opi-zero_opi-r1.bin)
- * Download the dtb file to /tmp:  (https://github.com/melsem/openwrt-19.07.2-spi/raw/master/sun8i-h2-plus-orangepi-r1.dtb)
- * Download the firmware file to /tmp: (https://github.com/melsem/openwrt-19.07.2-spi/raw/master/openwrt-sunxi-cortexa7-sun8i-h2-plus-orangepi-r1-squashfs-sysupgrade.bin)
+ * Download the bootloader file to /tmp: (https://github.com/melsem/openwrt-19.07.7-spi/raw/master/sun8i-h2-plus_orangepi-zero-boot.bin)
+ * Download the dtb file to /tmp:  (https://github.com/melsem/openwrt-19.07.7-spi/raw/master/sun8i-h2-plus-orangepi-zero-dtb)
+ * Download the firmware file to /tmp: (https://github.com/melsem/openwrt-19.07.7-spi/raw/master/sun8i-h2-plus-orangepi-zero-squashfs-sysupgrade.bin)
  * and run the commands:
 ```
 cd /tmp
-mtd -e uboot write uboot_opi-zero_opi-r1.bin uboot
-mtd -e dtb write sun8i-h2-plus-orangepi-r1.dtb dtb
-mtd -e firmware write openwrt-sunxi-cortexa7-sun8i-h2-plus-orangepi-r1-squashfs-sysupgrade.bin firmware
+mtd -e uboot write sun8i-h2-plus_orangepi-zero-boot.bin uboot
+mtd -e dtb write sun8i-h2-plus-orangepi-zero-dtb dtb
+mtd -e firmware write sun8i-h2-plus-orangepi-zero-squashfs-sysupgrade.bin firmware
 ```
 * Wait for each command to complete and turn off the power.
 * Remove the MMC flash drive and turn on the power.
@@ -35,6 +35,9 @@ on/off wifi, audio, i2c, usb2-3, irc, gpio-keys-user, rotary encoder.
 ```
 8. Set checkmarks, click save.
 And then click Apply. Orange Pi reboots.
+
+But in order for the Wi-Fi to work, you need to give the "reboot" command again.
+Or turn the power off and on.
 
 And then, as always, tune in to Luci. 192.168.10.1
 
