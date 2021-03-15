@@ -1,0 +1,109 @@
+--- a/arch/arm/boot/dts/sun8i-h2-plus-orangepi-zero.dts	2020-01-29 16:02:39.000000000 +0200
++++ b/arch/arm/boot/dts/sun8i-h2-plus-orangepi-zero.dts	2020-02-01 11:37:12.000000000 +0200
+@@ -156,6 +170,76 @@
+ 			#thermal-sensor-cells = <0>;
+ 		};
+ 	};
++
++	gpio-keys-user {
++		compatible = "gpio-keys";
++		pinctrl-names = "default";
++		pinctrl-0 = <&gpio_keys>;
++		status = "disabled";
++
++		g-keys_volup {
++			label = "GPIO KEY_VOLUMEUP";
++			linux,code = <115>; /* 115, see /usr/include/linux/input-event-codes.h */
++			gpios = <&pio 0 16 1>; /* PA16 GPIO_ACTIVE_LOW */
++		};
++
++		g-keys_voldown {
++			label = "GPIO KEY_VOLUMEDOWN";
++			linux,code = <114>; /* 114, see /usr/include/linux/input-event-codes.h */
++			gpios = <&pio 0 15 1>; /* PA15 GPIO_ACTIVE_LOW */
++		};
++
++		g-keys_power {
++			label = "GPIO KEY_POWER";
++			linux,code = <116>; /* 116, see /usr/include/linux/input-event-codes.h */
++			gpios = <&pio 0 14 1>; /* PA14 GPIO_ACTIVE_LOW */
++		};
++
++		g-keys_chanup {
++			label = "GPIO KEY_CHANNELUP";
++			linux,code = <402>; /* 402, see /usr/include/linux/input-event-codes.h */
++			gpios = <&pio 0 13 1>; /* PA13 GPIO_ACTIVE_LOW */
++		};
++
++		g-keys_chandown {
++			label = "GPIO KEY_CHANNELDOWN";
++			linux,code = <403>; /* 403, see /usr/include/linux/input-event-codes.h */
++			gpios = <&pio 0 2 1>; /* PA2 GPIO_ACTIVE_LOW */
++		};
++	};
++
++	rotary_button {
++		compatible = "gpio-keys";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_button>;
++		status = "disabled";
++
++		rotary_button_enter {
++			label = "ENTER";
++			linux,code = <99>; /* KEY_SYSRQ - see linux/input.h */
++			gpios = <&pio 0 0 1>; /* PA0 GPIO_ACTIVE_LOW */
++		};
++	};
++
++	rotary_axis {
++		/* https://mchehab.fedorapeople.org/kernel_docs/input/devices/rotary-encoder.html */
++		compatible = "rotary-encoder";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_rotary>;
++		gpios = <&pio 0 1 1>, <&pio 0 3 1>; /* PA1 PA3 GPIO_ACTIVE_LOW */
++		linux,axis = <1>; /* REL_Y */
++		rotary-encoder,relative-axis;
++		rotary-encoder,half-period;
++		status = "disabled";
++	};
++
++	pps {
++		compatible = "pps-gpio";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pps_pins>;
++		gpios = <&pio 0 7 0>; /* PA7 */
++		status = "disabled";
++	};
+ 
+ 	thermal-zones {
+ 		cpu_thermal: cpu_thermal {
+@@ -279,6 +299,29 @@
+ 		drive = <SUN4I_PINCTRL_10_MA>;
+ 		pull = <SUN4I_PINCTRL_NO_PULL>;
+ 	};
++
++	gpio_keys: gpio_keys {
++		pins = "PA13","PA14","PA15","PA16","PA2";
++		function = "gpio_in";
++		bias-pull-up;
++	};
++
++	pinctrl_button: pinctrl_button {
++		pins = "PA0";
++		function = "gpio_in";
++		bias-pull-up;
++	};
++
++	pinctrl_rotary: pinctrl_rotary {
++		pins = "PA1","PA3";
++		function = "gpio_in";
++		bias-pull-up;
++	};
++
++	pps_pins: pps_pins {
++		pins = "PA7";
++		function = "gpio_in";
++	};
+ };
+ 
+ &pwm {

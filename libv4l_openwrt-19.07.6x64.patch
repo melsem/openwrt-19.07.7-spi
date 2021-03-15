@@ -1,0 +1,151 @@
+--- a/feeds/packages/libs/libv4l/Makefile	2021-03-02 22:34:34.229700367 +0200
++++ b/feeds/packages/libs/libv4l/Makefile	2021-01-19 23:17:26.353451000 +0200
+@@ -6,12 +6,12 @@
+ include $(TOPDIR)/rules.mk
+ 
+ PKG_NAME:=v4l-utils
+-PKG_VERSION:=1.20.0
+-PKG_RELEASE:=2
++PKG_VERSION:=1.16.8
++PKG_RELEASE:=1
+ 
+ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+ PKG_SOURCE_URL:=https://www.linuxtv.org/downloads/v4l-utils
+-PKG_HASH:=956118713f7ccb405c55c7088a6a2490c32d54300dd9a30d8d5008c28d3726f7
++PKG_HASH:=84346bf200bd30efb8a80a65ded1b81d39ae7e0ff2272e98f478b4eee8f40d13
+ 
+ PKG_MAINTAINER:=Ted Hess <thess@kitschensync.net>
+ 
+--- a/feeds/packages/libs/libv4l/patches/020-add-missing-includes.patch	2021-03-02 22:34:33.657715954 +0200
++++ b/feeds/packages/libs/libv4l/patches/020-add-missing-includes.patch	2020-05-13 23:58:52.967559000 +0300
+@@ -1,10 +1,61 @@
+---- a/utils/libcecutil/cec-info.cpp
+-+++ b/utils/libcecutil/cec-info.cpp
+-@@ -5,6 +5,7 @@
+-  * Copyright 2017 Cisco Systems, Inc. and/or its affiliates. All rights reserved.
+-  */
++--- a/utils/cec-ctl/cec-ctl.cpp
+++++ b/utils/cec-ctl/cec-ctl.cpp
++@@ -18,6 +18,7 @@
++ #include <errno.h>
++ #include <sys/ioctl.h>
++ #include <stdarg.h>
+++#include <ctime>
++ #include <cerrno>
++ #include <string>
++ #include <vector>
++--- a/utils/cec-follower/cec-follower.h
+++++ b/utils/cec-follower/cec-follower.h
++@@ -9,6 +9,7 @@
++ #define _CEC_FOLLOWER_H_
+  
+-+#include <cctype>
+- #include <stdio.h>
++ #include <stdarg.h>
+++#include <ctime>
++ #include <cerrno>
+  #include <string>
+- #include <unistd.h>
++ #include <linux/cec-funcs.h>
++--- a/utils/common/media-info.cpp
+++++ b/utils/common/media-info.cpp
++@@ -21,6 +21,7 @@
++ #include <linux/media.h>
++ 
++ #include <fstream>
+++#include <iostream>
++ #include <media-info.h>
++ 
++ static std::string num2s(unsigned num, bool is_hex = true)
++--- a/utils/rds-ctl/rds-ctl.cpp
+++++ b/utils/rds-ctl/rds-ctl.cpp
++@@ -27,6 +27,8 @@
++ #include <linux/videodev2.h>
++ #include <libv4l2rds.h>
++ 
+++#include <cctype>
+++#include <ctime>
++ #include <list>
++ #include <vector>
++ #include <map>
++--- a/utils/v4l2-compliance/media-info.cpp
+++++ b/utils/v4l2-compliance/media-info.cpp
++@@ -21,6 +21,7 @@
++ #include <linux/media.h>
++ 
++ #include <fstream>
+++#include <iostream>
++ #include <media-info.h>
++ 
++ static std::string num2s(unsigned num, bool is_hex = true)
++--- a/utils/v4l2-ctl/media-info.cpp
+++++ b/utils/v4l2-ctl/media-info.cpp
++@@ -21,6 +21,7 @@
++ #include <linux/media.h>
++ 
++ #include <fstream>
+++#include <iostream>
++ #include <media-info.h>
++ 
++ static std::string num2s(unsigned num, bool is_hex = true)
+--- a/feeds/packages/libs/libv4l/patches/030-getsubopt.patch	2021-03-02 22:34:33.657715954 +0200
++++ b/feeds/packages/libs/libv4l/patches/030-getsubopt.patch	2020-05-13 23:58:52.967559000 +0300
+@@ -1,6 +1,11 @@
++POSIX says that behavior when subopts list is empty is undefined.
++musl libs will set value to NULL which leads to crash.
++
++Simply avoid getsubopt, since we cannot rely on it.
++
+ --- a/utils/v4l2-ctl/v4l2-ctl-common.cpp
+ +++ b/utils/v4l2-ctl/v4l2-ctl-common.cpp
+-@@ -785,15 +785,17 @@ static bool parse_subset(char *optarg)
++@@ -679,16 +679,17 @@ static bool parse_subset(char *optarg)
+  
+  static bool parse_next_subopt(char **subs, char **value)
+  {
+@@ -13,7 +18,8 @@
+  
+ -	if (opt < 0 || *value)
+ -		return false;
+--	fprintf(stderr, "Missing suboption value\n");
++-	fprintf(stderr, "No value given to suboption <%s>\n",
++-			subopts[opt]);
+ -	return true;
+ +	while (*p && *p != ',')
+ +		p++;
+@@ -25,4 +31,4 @@
+ +	return false;
+  }
+  
+- void common_cmd(const std::string &media_bus_info, int ch, char *optarg)
++ void common_cmd(int ch, char *optarg)
+--- a/feeds/packages/libs/libv4l/patches/040-musl.patch	1970-01-01 03:00:00.000000000 +0300
++++ b/feeds/packages/libs/libv4l/patches/040-musl.patch	2020-05-13 23:58:52.967559000 +0300
+@@ -0,0 +1,11 @@
++--- a/utils/keytable/keytable.c
+++++ b/utils/keytable/keytable.c
++@@ -1686,7 +1686,7 @@ static void test_event(struct rc_device *rc_dev, int fd)
++ 
++ 		for (i = 0; i < rd / sizeof(struct input_event); i++) {
++ 			printf(_("%ld.%06ld: event type %s(0x%02x)"),
++-				ev[i].time.tv_sec, ev[i].time.tv_usec,
+++				ev[i].input_event_sec, ev[i].input_event_usec,
++ 				get_event_name(events_type, ev[i].type), ev[i].type);
++ 
++ 			switch (ev[i].type) {
+--- a/feeds/packages/libs/libv4l/patches/050-4.14.patch	1970-01-01 03:00:00.000000000 +0300
++++ b/feeds/packages/libs/libv4l/patches/050-4.14.patch	2020-05-13 23:58:52.967559000 +0300
+@@ -0,0 +1,13 @@
++--- a/utils/keytable/keytable.c
+++++ b/utils/keytable/keytable.c
++@@ -61,6 +61,10 @@ struct input_keymap_entry_v2 {
++ 	u_int8_t  scancode[32];
++ };
++ 
+++#ifndef input_event_sec
+++#define input_event_sec time.tv_sec
+++#define input_event_usec time.tv_usec
+++#endif
++ 
++ #define IR_PROTOCOLS_USER_DIR IR_KEYTABLE_USER_DIR "/protocols"
++ #define IR_PROTOCOLS_SYSTEM_DIR IR_KEYTABLE_SYSTEM_DIR "/protocols"

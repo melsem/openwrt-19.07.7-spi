@@ -1,0 +1,15 @@
+--- a/feeds/packages/utils/triggerhappy/patches/001-add_REL-ABS-devices.patch	1970-01-01 03:00:00.000000000 +0300
++++ b/feeds/packages/utils/triggerhappy/patches/001-add_REL-ABS-devices.patch	2021-02-28 11:11:04.490962000 +0200
+@@ -0,0 +1,12 @@
++--- a/devices.c
+++++ b/devices.c
++@@ -45,7 +45,8 @@
++ 	int rc = ioctl(fd, EVIOCGBIT(0,sizeof(bits)), bits);
++ 	return rc > 0 && (
++ 		/* we only consider devices with keys or switches suitable */
++-		test_bit(EV_KEY, bits) || test_bit(EV_SW, bits)
+++		test_bit(EV_KEY, bits) || test_bit(EV_SW, bits) ||
+++		test_bit(EV_REL, bits) || test_bit(EV_ABS, bits)
++ 	);
++ }
++ 

@@ -1,0 +1,11 @@
+--- a/arch/arm/boot/dts/sun8i-h2-plus-orangepi-zero.dts
++++ b/arch/arm/boot/dts/sun8i-h2-plus-orangepi-zero.dts
+@@ -62,6 +70,8 @@
+ 		ethernet0 = &emac;
+ 		ethernet1 = &xr819;
+ 		spi0 = &spi0;
++		i2c0 = &i2c0;
++		i2c1 = &i2c1;
+ 	};
+ 
+ 	chosen {
