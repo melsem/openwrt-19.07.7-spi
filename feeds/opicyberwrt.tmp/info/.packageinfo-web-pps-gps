@@ -1,0 +1,20 @@
+Source-Makefile: feeds/opicyberwrt/web-pps-gps/Makefile
+
+Package: web-pps-gps
+Version: 1.0-21.03.2020
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread @TARGET_sunxi +chrony +gpsd +gpsd-clients +pps-tools +kmod-pps +kmod-pps-gpio
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: utils
+Category: Utilities
+Repository: base
+Title: web-pps-gps setup
+Maintainer: 
+Source: 
+Type: ipkg
+Description: web-pps-gps setup
+
+@@
+
+

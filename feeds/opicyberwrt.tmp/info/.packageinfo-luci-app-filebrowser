@@ -1,0 +1,21 @@
+Source-Makefile: feeds/opicyberwrt/luci-app-filebrowser/Makefile
+
+Package: luci-app-filebrowser
+Submenu: 3. Applications
+Version: 1-16.03.2021
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread 
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: luci
+Category: LuCI
+Repository: base
+Title: File browser for OpenWrt
+Maintainer: 
+Source: 
+Type: ipkg
+Description: File browser for OpenWrt
+
+@@
+
+

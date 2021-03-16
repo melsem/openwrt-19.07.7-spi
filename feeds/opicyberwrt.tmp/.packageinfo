@@ -1,0 +1,334 @@
+Source-Makefile: feeds/opicyberwrt/boot-config-mmc/Makefile
+
+Package: boot-config-mmc
+Version: 1.2-2020.03.29
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread @TARGET_sunxi +mount-utils +block-mount +uhttpd +dtc
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: utils
+Category: Utilities
+Repository: base
+Title: boot-config-mmc
+Maintainer: 
+Source: 
+Type: ipkg
+Description:  Utility for editing boot configuration. Sunxi Allwiner H2+ H3
+
+@@
+
+
+Source-Makefile: feeds/opicyberwrt/boot-config-spi/Makefile
+
+Package: boot-config-spi
+Version: 1.2-2020.04.30
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread @TARGET_sunxi +uhttpd +dtc
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: utils
+Category: Utilities
+Repository: base
+Title: boot-config-spi
+Maintainer: 
+Source: 
+Type: ipkg
+Description:  Utility for editing boot configuration. Sunxi Allwiner H2+ H3
+
+@@
+
+
+Source-Makefile: feeds/opicyberwrt/i2c-encoder-tda7313/Makefile
+
+Package: i2c-encoder-tda7313
+Version: 0.1-26.02.2021
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +i2c-tools +kmod-i2c-algo-bit +kmod-i2c-core +kmod-i2c-gpio
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: utils
+Category: Utilities
+Repository: base
+Title: i2c encoder tda7313
+Maintainer: 
+Source: 
+Type: ipkg
+Description:  The TDA7313 is a volume, tone (bass and  treble)balance (Left/Right)
+ and fader (front/rear) processorfor quality audio applications in car radio and Hi-Fi systems.
+ Selectable input gain and external loudness functionare provided.
+ Control is accomplished by serial I2Cbus microprocessor interface.
+ The AC signal setting is obtained by resistor networksand switches combined with operationalamplifiers.
+ Thanks to the used BIPOLAR/CMOS Tecnology,Low Distortion, Low Noise and Low DC stepping areobtained.
+
+@@
+
+
+Source-Makefile: feeds/opicyberwrt/i2c_HD44780/Makefile
+
+Package: i2c_HD44780
+Version: 17.03.2018-read-file+ds18b20_gpio+USB-UART_digitemp+clock_Web_Cyberwrt
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +i2c-tools +kmod-i2c-algo-bit +kmod-i2c-core +kmod-i2c-gpio
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: utils
+Category: Utilities
+Repository: base
+Title: i2c_HD44780 LCD monitor
+Maintainer: 
+Source: 
+Type: ipkg
+Description:  LCD monitor for HD44780 over I2C by PCF8574 bus expander.
+ W1-gpio thermostat-thermometer 4-sensors or digitemp-usb thermometer.
+ help(RU) http://www.cyber-place.ru/showthread.php?t=2164
+
+@@
+
+
+Source-Makefile: feeds/opicyberwrt/luci-app-cpufreq_scaling/Makefile
+
+Package: luci-app-cpufreq_scaling
+Submenu: 3. Applications
+Version: 1.2-04.03.2021
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread @TARGET_sunxi
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: luci
+Category: LuCI
+Repository: base
+Title: cpufreq scaling interface for LuCI
+Maintainer: 
+Source: 
+Type: ipkg
+Description: cpufreq scaling interface for LuCI
+
+@@
+
+
+Source-Makefile: feeds/opicyberwrt/luci-app-filebrowser/Makefile
+
+Package: luci-app-filebrowser
+Submenu: 3. Applications
+Version: 1-16.03.2021
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread 
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: luci
+Category: LuCI
+Repository: base
+Title: File browser for OpenWrt
+Maintainer: 
+Source: 
+Type: ipkg
+Description: File browser for OpenWrt
+
+@@
+
+
+Source-Makefile: feeds/opicyberwrt/port_listen/Makefile
+
+Package: port_listen
+Version: 19.02.2018-test
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread 
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: utils
+Category: Utilities
+Repository: base
+Title: port_listen
+Maintainer: 
+Source: 
+Type: ipkg
+Description:  port_listen << read and setup port >>
+
+@@
+
+
+Source-Makefile: feeds/opicyberwrt/rtl8189es/Makefile
+
+Package: kmod-rtl8189es
+Submenu: Wireless Drivers
+Version: <LINUX_VERSION>+2020-03-24-b7049b0ee50b1e82307a75a6f3e1e3d6111de7e8-1
+Depends: +kmod-cfg80211 +kmod-mmc +@DRIVER_11N_SUPPORT @!LINUX_4_19
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: kernel
+Category: Kernel modules
+Title: Realtek RTL8189ES / RTL8189ETV SDIO WiFi
+Maintainer: Hauke Mehrtens <hauke@hauke-m.de>
+Source: rtl8189es-2020-03-24-b7049b0ee50b1e82307a75a6f3e1e3d6111de7e8.tar.xz
+License: GPLv2
+Type: ipkg
+Description: Realtek RTL8189ES / RTL8189ETV SDIO WiFi
+Hauke Mehrtens <hauke@hauke-m.de>
+@@
+
+
+Source-Makefile: feeds/opicyberwrt/termostat/Makefile
+
+Package: termostat
+Version: 1.8-08.01.2020-CyberWrt-GPIOx_1Wire
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +kmod-w1 +kmod-w1-master-gpio +kmod-w1-slave-therm
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: utils
+Category: Utilities
+Repository: base
+Title: TERMOMETR-TERMOSTAT-auto-init-narodmon.ru
+Maintainer: 
+Source: 
+Type: ipkg
+Description: TERMOMETR-TERMOSTAT-auto-init-narodmon.ru
+
+@@
+
+
+Source-Makefile: feeds/opicyberwrt/termostat-serial-arduino/Makefile
+
+Package: termostat-serial-arduino
+Version: 19.02.2018-test
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +port_listen
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: utils
+Category: Utilities
+Repository: base
+Title: termostat-serial-arduino
+Maintainer: 
+Source: 
+Type: ipkg
+Description:  termostat-serial-arduino << read arduino-menu >>
+ help(RU) http://cyber-place.ru/showthread.php?t=2752
+
+@@
+
+
+Source-Makefile: feeds/opicyberwrt/termostat-usb-data-uart/Makefile
+
+Package: termostat-usb-data-uart
+Version: 1.9-27.11.2016-CyberWrt
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +digitemp +digitemp-usb +libusb-compat
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: utils
+Category: Utilities
+Repository: base
+Title: TERMOMETR-TERMOSTAT-auto-init-narodmon.ru
+Maintainer: 
+Source: 
+Type: ipkg
+Description: TERMOMETR-TERMOSTAT-auto-init-narodmon.ru
+
+@@
+
+
+Source-Makefile: feeds/opicyberwrt/web-cyberwrt/Makefile
+
+Package: web-cyberwrt
+Version: 1.2-web-uhttpd-cyberwrt
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +uhttpd
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: utils
+Category: Utilities
+Repository: base
+Title: web-uhttpd
+Maintainer: 
+Source: 
+Type: ipkg
+Description: web-uhttpd
+
+@@
+
+
+Source-Makefile: feeds/opicyberwrt/web-ir-remote/Makefile
+
+Package: web-ir-remote
+Version: 1.0-16.03.2020
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread @TARGET_sunxi +kmod-sunxi-ir +v4l-utils +triggerhappy
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: utils
+Category: Utilities
+Repository: base
+Title: Test web-ir-remote setup
+Maintainer: 
+Source: 
+Type: ipkg
+Description: Test web-ir-remote setup
+
+@@
+
+
+Source-Makefile: feeds/opicyberwrt/web-pps-gps/Makefile
+
+Package: web-pps-gps
+Version: 1.0-21.03.2020
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread @TARGET_sunxi +chrony +gpsd +gpsd-clients +pps-tools +kmod-pps +kmod-pps-gpio
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: utils
+Category: Utilities
+Repository: base
+Title: web-pps-gps setup
+Maintainer: 
+Source: 
+Type: ipkg
+Description: web-pps-gps setup
+
+@@
+
+
+Source-Makefile: feeds/opicyberwrt/web-radio2/Makefile
+
+Package: web-radio2
+Version: client-10a-01.04.2017
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +kmod-sound-core +kmod-usb-audio +madplay +kmod-usb-ohci +kmod-usb2 +curl
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: utils
+Category: Utilities
+Repository: base
+Title: web-radio2
+Maintainer: 
+Source: 
+Type: ipkg
+Description:  web-radio2.
+ help(RU) http://cyber-place.ru/showthread.php?t=2731
+
+@@
+
+
+Source-Makefile: feeds/opicyberwrt/xradio/Makefile
+
+Package: kmod-xradio
+Submenu: Wireless Drivers Test-xr819
+Version: <LINUX_VERSION>+2021-03-06-c909de15239a94e941ae5985991cdb68d8e9f5c9-1
+Depends: @TARGET_sunxi +kmod-mac80211 +wpad-mini
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: kernel
+Category: Kernel modules
+Title: Xradio xr819 test wifi-drivers support
+Maintainer: 
+Source: xradio-2021-03-06-c909de15239a94e941ae5985991cdb68d8e9f5c9.tar.xz
+License: GPLv2
+Type: ipkg
+Kernel-Config: CONFIG_WLAN_VENDOR_XRADIO=m CONFIG_XRADIO_USE_EXTENSIONS=y
+Description: Xradio xr819 test wifi-drivers support
+
+@@
+
+

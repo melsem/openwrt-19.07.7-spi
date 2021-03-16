@@ -1,0 +1,25 @@
+Source-Makefile: feeds/opicyberwrt/i2c-encoder-tda7313/Makefile
+
+Package: i2c-encoder-tda7313
+Version: 0.1-26.02.2021
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +i2c-tools +kmod-i2c-algo-bit +kmod-i2c-core +kmod-i2c-gpio
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: utils
+Category: Utilities
+Repository: base
+Title: i2c encoder tda7313
+Maintainer: 
+Source: 
+Type: ipkg
+Description:  The TDA7313 is a volume, tone (bass and  treble)balance (Left/Right)
+ and fader (front/rear) processorfor quality audio applications in car radio and Hi-Fi systems.
+ Selectable input gain and external loudness functionare provided.
+ Control is accomplished by serial I2Cbus microprocessor interface.
+ The AC signal setting is obtained by resistor networksand switches combined with operationalamplifiers.
+ Thanks to the used BIPOLAR/CMOS Tecnology,Low Distortion, Low Noise and Low DC stepping areobtained.
+
+@@
+
+

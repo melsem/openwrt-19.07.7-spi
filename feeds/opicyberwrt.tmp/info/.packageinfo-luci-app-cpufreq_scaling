@@ -1,0 +1,21 @@
+Source-Makefile: feeds/opicyberwrt/luci-app-cpufreq_scaling/Makefile
+
+Package: luci-app-cpufreq_scaling
+Submenu: 3. Applications
+Version: 1.2-04.03.2021
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread @TARGET_sunxi
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: luci
+Category: LuCI
+Repository: base
+Title: cpufreq scaling interface for LuCI
+Maintainer: 
+Source: 
+Type: ipkg
+Description: cpufreq scaling interface for LuCI
+
+@@
+
+

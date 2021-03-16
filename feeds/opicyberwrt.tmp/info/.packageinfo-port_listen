@@ -1,0 +1,20 @@
+Source-Makefile: feeds/opicyberwrt/port_listen/Makefile
+
+Package: port_listen
+Version: 19.02.2018-test
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread 
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: utils
+Category: Utilities
+Repository: base
+Title: port_listen
+Maintainer: 
+Source: 
+Type: ipkg
+Description:  port_listen << read and setup port >>
+
+@@
+
+

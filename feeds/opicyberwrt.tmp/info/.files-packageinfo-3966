@@ -1,0 +1,16 @@
+boot-config-mmc
+boot-config-spi
+i2c-encoder-tda7313
+i2c_HD44780
+luci-app-cpufreq_scaling
+luci-app-filebrowser
+port_listen
+rtl8189es
+termostat
+termostat-serial-arduino
+termostat-usb-data-uart
+web-cyberwrt
+web-ir-remote
+web-pps-gps
+web-radio2
+xradio

@@ -1,0 +1,22 @@
+Source-Makefile: feeds/opicyberwrt/xradio/Makefile
+
+Package: kmod-xradio
+Submenu: Wireless Drivers Test-xr819
+Version: <LINUX_VERSION>+2021-03-06-c909de15239a94e941ae5985991cdb68d8e9f5c9-1
+Depends: @TARGET_sunxi +kmod-mac80211 +wpad-mini
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: kernel
+Category: Kernel modules
+Title: Xradio xr819 test wifi-drivers support
+Maintainer: 
+Source: xradio-2021-03-06-c909de15239a94e941ae5985991cdb68d8e9f5c9.tar.xz
+License: GPLv2
+Type: ipkg
+Kernel-Config: CONFIG_WLAN_VENDOR_XRADIO=m CONFIG_XRADIO_USE_EXTENSIONS=y
+Description: Xradio xr819 test wifi-drivers support
+
+@@
+
+

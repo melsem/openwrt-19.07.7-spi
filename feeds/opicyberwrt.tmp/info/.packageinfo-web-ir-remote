@@ -1,0 +1,20 @@
+Source-Makefile: feeds/opicyberwrt/web-ir-remote/Makefile
+
+Package: web-ir-remote
+Version: 1.0-16.03.2020
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread @TARGET_sunxi +kmod-sunxi-ir +v4l-utils +triggerhappy
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: utils
+Category: Utilities
+Repository: base
+Title: Test web-ir-remote setup
+Maintainer: 
+Source: 
+Type: ipkg
+Description: Test web-ir-remote setup
+
+@@
+
+

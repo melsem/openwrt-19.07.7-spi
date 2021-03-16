@@ -1,0 +1,20 @@
+Source-Makefile: feeds/opicyberwrt/boot-config-mmc/Makefile
+
+Package: boot-config-mmc
+Version: 1.2-2020.03.29
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread @TARGET_sunxi +mount-utils +block-mount +uhttpd +dtc
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: utils
+Category: Utilities
+Repository: base
+Title: boot-config-mmc
+Maintainer: 
+Source: 
+Type: ipkg
+Description:  Utility for editing boot configuration. Sunxi Allwiner H2+ H3
+
+@@
+
+

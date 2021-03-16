@@ -1,0 +1,22 @@
+Source-Makefile: feeds/opicyberwrt/i2c_HD44780/Makefile
+
+Package: i2c_HD44780
+Version: 17.03.2018-read-file+ds18b20_gpio+USB-UART_digitemp+clock_Web_Cyberwrt
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +i2c-tools +kmod-i2c-algo-bit +kmod-i2c-core +kmod-i2c-gpio
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: utils
+Category: Utilities
+Repository: base
+Title: i2c_HD44780 LCD monitor
+Maintainer: 
+Source: 
+Type: ipkg
+Description:  LCD monitor for HD44780 over I2C by PCF8574 bus expander.
+ W1-gpio thermostat-thermometer 4-sensors or digitemp-usb thermometer.
+ help(RU) http://www.cyber-place.ru/showthread.php?t=2164
+
+@@
+
+

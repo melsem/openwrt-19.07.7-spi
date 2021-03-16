@@ -1,0 +1,20 @@
+Source-Makefile: feeds/opicyberwrt/termostat/Makefile
+
+Package: termostat
+Version: 1.8-08.01.2020-CyberWrt-GPIOx_1Wire
+Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +kmod-w1 +kmod-w1-master-gpio +kmod-w1-slave-therm
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: utils
+Category: Utilities
+Repository: base
+Title: TERMOMETR-TERMOSTAT-auto-init-narodmon.ru
+Maintainer: 
+Source: 
+Type: ipkg
+Description: TERMOMETR-TERMOSTAT-auto-init-narodmon.ru
+
+@@
+
+
