@@ -1,0 +1,19 @@
+#!/bin/sh
+
+. /lib/functions/uci-defaults.sh
+
+board=$(board_name)
+boardname="${board##*,}"
+
+board_config_update
+
+case $board in
+	xunlong,orangepi-zero|\
+	xunlong,orangepi-zero-lts)
+	ucidef_set_led_netdev "lan" "LAN" "orangepi:green:pwr" "eth0"
+	;;
+esac
+
+board_config_flush
+
+exit 0
