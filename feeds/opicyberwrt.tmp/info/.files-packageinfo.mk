@@ -1,5 +1,4 @@
-$(eval $(call PackageDir,boot-config-mmc,boot-config-mmc,))
-$(eval $(call PackageDir,boot-config-spi,boot-config-spi,))
+$(eval $(call PackageDir,boot-config,boot-config,))
 $(eval $(call PackageDir,i2c-encoder-tda7313,i2c-encoder-tda7313,))
 $(eval $(call PackageDir,i2c_HD44780,i2c_HD44780,))
 $(eval $(call PackageDir,luci-app-cpufreq_scaling,luci-app-cpufreq_scaling,))

@@ -135,7 +135,7 @@ define Device/sun8i-h2-plus-orangepi-zero
 #  IMAGE/SCR.bin := add-scr | pad-to $$$$(BLOCKSIZE)
   IMAGE/dtb := add-dtb | pad-to $$$$(BLOCKSIZE)
   DEVICE_PACKAGES:=kmod-rtc-sunxi kmod-xradio \
-	boot-config-spi
+	boot-config
   SUPPORTED_DEVICES:=xunlong,orangepi-zero
   SUNXI_DTS:=sun8i-h2-plus-orangepi-zero
 endef
@@ -158,7 +158,7 @@ define Device/sun8i-h2-plus-orangepi-zero-lts
 #  IMAGE/SCR.bin := add-scr | pad-to $$$$(BLOCKSIZE)
   IMAGE/dtb := add-dtb | pad-to $$$$(BLOCKSIZE)
   DEVICE_PACKAGES:=kmod-rtc-sunxi kmod-xradio \
-	boot-config-spi
+	boot-config
   SUPPORTED_DEVICES:=xunlong,orangepi-zero-lts
   SUNXI_DTS:=sun8i-h2-plus-orangepi-zero-lts
 endef
@@ -181,7 +181,7 @@ define Device/sun8i-h2-plus-orangepi-r1
 #  IMAGE/SCR.bin := add-scr | pad-to $$$$(BLOCKSIZE)
   IMAGE/dtb := add-dtb | pad-to $$$$(BLOCKSIZE)
   DEVICE_PACKAGES:=kmod-rtc-sunxi kmod-usb-net kmod-usb-net-rtl8152 kmod-rtl8189es \
-	boot-config-spi
+	boot-config
   SUPPORTED_DEVICES:=xunlong,orangepi-r1
   SUNXI_DTS:=sun8i-h2-plus-orangepi-r1
 endef

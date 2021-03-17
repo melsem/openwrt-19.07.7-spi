@@ -1,5 +1,4 @@
-boot-config-mmc
-boot-config-spi
+boot-config
 i2c-encoder-tda7313
 i2c_HD44780
 luci-app-cpufreq_scaling
