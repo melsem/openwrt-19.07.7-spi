@@ -1,7 +1,7 @@
 Source-Makefile: feeds/opicyberwrt/boot-config/Makefile
 
 Package: boot-config
-Version: 1.2-2020.03.29
+Version: 1.3-24.03.2021
 Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread @TARGET_sunxi +mount-utils +block-mount +uhttpd +dtc
 Conflicts: 
 Menu-Depends: 
@@ -9,7 +9,7 @@ Provides:
 Section: utils
 Category: Utilities
 Repository: base
-Title: boot-config
+Title: boot-config for OpenWrt.
 Maintainer: 
 Source: 
 Type: ipkg

@@ -123,15 +123,15 @@ TARGET_DEVICES += sun6i-a31-m9
 define Device/sun8i-h2-plus-orangepi-zero
   DEVICE_TITLE:=Xunlong Orange Pi Zero
   FILESYSTEMS := squashfs
-  IMAGES := sysupgrade.bin dtb # fullflash.bin boot.bin SCR.bin
+  IMAGES := sysupgrade.bin dtb fullflash.bin boot.bin # SCR.bin
   IMAGE_SIZE := 15808k
   BOOT_SIZE := 512k
   DTB_SIZE := 64k
   BLOCKSIZE := 4k
   IMAGE/sysupgrade.bin := append-kernel | append-rootfs | pad-rootfs | append-metadata | check-size $$$$(IMAGE_SIZE)
-#  IMAGE/fullflash.bin := append-uboot | pad-to $$$$(BOOT_SIZE) | add-dtb | pad-to $$$$(DTB_SIZE) | \
-#			append-kernel | append-rootfs | pad-rootfs
-#  IMAGE/boot.bin := append-uboot | pad-to $$$$(BLOCKSIZE)
+  IMAGE/fullflash.bin := append-uboot | pad-to $$$$(BOOT_SIZE) | add-dtb | pad-to $$$$(DTB_SIZE) | \
+			append-kernel | append-rootfs | pad-rootfs
+  IMAGE/boot.bin := append-uboot | pad-to $$$$(BLOCKSIZE)
 #  IMAGE/SCR.bin := add-scr | pad-to $$$$(BLOCKSIZE)
   IMAGE/dtb := add-dtb | pad-to $$$$(BLOCKSIZE)
   DEVICE_PACKAGES:=kmod-rtc-sunxi kmod-xradio \
@@ -146,15 +146,15 @@ TARGET_DEVICES += sun8i-h2-plus-orangepi-zero
 define Device/sun8i-h2-plus-orangepi-zero-lts
   DEVICE_TITLE:=Xunlong Orange Pi Zero LTS
   FILESYSTEMS := squashfs
-  IMAGES := sysupgrade.bin dtb # fullflash.bin boot.bin SCR.bin
+  IMAGES := sysupgrade.bin dtb fullflash.bin boot.bin # SCR.bin
   IMAGE_SIZE := 15808k
   BOOT_SIZE := 512k
   DTB_SIZE := 64k
   BLOCKSIZE := 4k
   IMAGE/sysupgrade.bin := append-kernel | append-rootfs | pad-rootfs | append-metadata | check-size $$$$(IMAGE_SIZE)
-#  IMAGE/fullflash.bin := append-uboot | pad-to $$$$(BOOT_SIZE) | add-dtb | pad-to $$$$(DTB_SIZE) | \
-#			append-kernel | append-rootfs | pad-rootfs
-#  IMAGE/boot.bin := append-uboot | pad-to $$$$(BLOCKSIZE)
+  IMAGE/fullflash.bin := append-uboot | pad-to $$$$(BOOT_SIZE) | add-dtb | pad-to $$$$(DTB_SIZE) | \
+			append-kernel | append-rootfs | pad-rootfs
+  IMAGE/boot.bin := append-uboot | pad-to $$$$(BLOCKSIZE)
 #  IMAGE/SCR.bin := add-scr | pad-to $$$$(BLOCKSIZE)
   IMAGE/dtb := add-dtb | pad-to $$$$(BLOCKSIZE)
   DEVICE_PACKAGES:=kmod-rtc-sunxi kmod-xradio \
@@ -169,15 +169,15 @@ TARGET_DEVICES += sun8i-h2-plus-orangepi-zero-lts
 define Device/sun8i-h2-plus-orangepi-r1
   DEVICE_TITLE:=Xunlong Orange Pi R1
   FILESYSTEMS := squashfs
-  IMAGES := sysupgrade.bin dtb # fullflash.bin boot.bin SCR.bin
+  IMAGES := sysupgrade.bin dtb fullflash.bin boot.bin # SCR.bin
   IMAGE_SIZE := 15808k
   BOOT_SIZE := 512k
   DTB_SIZE := 64k
   BLOCKSIZE := 4k
   IMAGE/sysupgrade.bin := append-kernel | append-rootfs | pad-rootfs | append-metadata | check-size $$$$(IMAGE_SIZE)
-#  IMAGE/fullflash.bin := append-uboot | pad-to $$$$(BOOT_SIZE) | add-dtb | pad-to $$$$(DTB_SIZE) | \
-#			append-kernel | append-rootfs | pad-rootfs
-#  IMAGE/boot.bin := append-uboot | pad-to $$$$(BLOCKSIZE)
+  IMAGE/fullflash.bin := append-uboot | pad-to $$$$(BOOT_SIZE) | add-dtb | pad-to $$$$(DTB_SIZE) | \
+			append-kernel | append-rootfs | pad-rootfs
+  IMAGE/boot.bin := append-uboot | pad-to $$$$(BLOCKSIZE)
 #  IMAGE/SCR.bin := add-scr | pad-to $$$$(BLOCKSIZE)
   IMAGE/dtb := add-dtb | pad-to $$$$(BLOCKSIZE)
   DEVICE_PACKAGES:=kmod-rtc-sunxi kmod-usb-net kmod-usb-net-rtl8152 kmod-rtl8189es \

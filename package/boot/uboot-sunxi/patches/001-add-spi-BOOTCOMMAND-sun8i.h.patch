@@ -1,0 +1,18 @@
+--- a/include/configs/sun8i.h	2020-04-13 18:02:18.000000000 +0300
++++ b/include/configs/sun8i.h	2021-02-11 11:33:13.895494151 +0200
+@@ -12,6 +12,15 @@
+  * A23 specific configuration
+  */
+ 
++#undef CONFIG_BOOTCOMMAND
++
++#define CONFIG_BOOTCOMMAND \
++	"setenv bootargs console=ttyS0,115200 earlyprintk rootfstype=squashfs mtdparts=spi0.0:512k(uboot),64k(dtb),-(firmware);" \
++	"sf probe 0;" \
++	"sf read 0x43000000 0x80000 0x10000;" \
++	"sf read 0x42000000 0x90000 0x400000;" \
++	"bootm 0x42000000 - 0x43000000 "
++
+ /*
+  * Include common sunxi configuration where most the settings are
+  */

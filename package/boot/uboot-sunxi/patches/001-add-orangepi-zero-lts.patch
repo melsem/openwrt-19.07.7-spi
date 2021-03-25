@@ -1,109 +1,13 @@
---- a/include/spi.h
-+++ b/include/spi.h
-@@ -10,6 +12,8 @@
- #define _SPI_H_
- 
- #include <common.h>
-+
-+#define AHB_GATE_OFFSET_SPI0		20
- 
- /* SPI mode flags */
- #define SPI_CPHA	BIT(0)			/* clock phase */
---- a/include/configs/sun8i.h	2020-04-13 18:02:18.000000000 +0300
-+++ b/include/configs/sun8i.h	2020-04-27 13:18:42.645124351 +0300
-@@ -16,6 +22,15 @@
- #define CONFIG_USB_EHCI_SUNXI
- #endif
- 
-+#undef CONFIG_BOOTCOMMAND
-+
-+#define CONFIG_BOOTCOMMAND \
-+	"setenv bootargs console=ttyS0,115200 earlyprintk rootfstype=squashfs mtdparts=spi0.0:512k(uboot),64k(dtb),-(firmware);" \
-+	"sf probe 0;" \
-+	"sf read 0x43000000 0x80000 0x10000;" \
-+	"sf read 0x42000000 0x90000 0x400000;" \
-+	"bootm 0x42000000 - 0x43000000 "
-+
- /*
-  * Include common sunxi configuration where most the settings are
-  */
---- a/arch/arm/dts/sun8i-h2-plus-orangepi-zero.dts	2020-04-13 18:02:18.000000000 +0300
-+++ b/arch/arm/dts/sun8i-h2-plus-orangepi-zero.dts	2020-04-27 13:21:09.376776939 +0300
-@@ -59,6 +59,7 @@
- 		/* ethernet0 is the H3 emac, defined in sun8i-h3.dtsi */
- 		ethernet0 = &emac;
- 		ethernet1 = &xr819;
-+		spi0 = &spi0;
- 	};
- 
- 	chosen {
-@@ -144,7 +165,7 @@
- 
- &spi0 {
- 	/* Disable SPI NOR by default: it optional on Orange Pi Zero boards */
--	status = "disabled";
-+	status = "okay";
- 
- 	flash@0 {
- 		#address-cells = <1>;
-@@ -152,6 +173,28 @@
- 		compatible = "mxicy,mx25l1606e", "winbond,w25q128";
- 		reg = <0>;
- 		spi-max-frequency = <40000000>;
-+
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <0x01>;
-+			#size-cells = <0x01>;
-+
-+			partition@0 {
-+				label = "uboot";
-+				reg = <0x0 0x80000>;
-+			};
-+
-+			partition@80000 {
-+				label = "dtb";
-+				reg = <0x80000 0x10000>;
-+			};
-+
-+			partition@90000 {
-+				compatible = "firmware";
-+				label = "firmware";
-+				reg = <0x90000 0xf70000>;
-+			};
-+		};
- 	};
- };
- 
---- a/configs/orangepi_zero_defconfig	2020-04-13 18:02:18.000000000 +0300
-+++ b/configs/orangepi_zero_defconfig	2020-04-26 23:25:47.021081652 +0300
-@@ -15,3 +15,16 @@
- CONFIG_SUN8I_EMAC=y
- CONFIG_USB_EHCI_HCD=y
- CONFIG_SYS_USB_EVENT_POLL_VIA_INT_QUEUE=y
-+CONFIG_USB_OHCI_HCD=y
-+CONFIG_SPI=y
-+CONFIG_SUN4I_SPI=y
-+CONFIG_CMD_SF=y
-+CONFIG_CMD_SPI=y
-+CONFIG_DM_SPI=y
-+CONFIG_DM_SPI_FLASH=y
-+CONFIG_SPL_SPI_BOOT=y
-+CONFIG_SPI_FLASH_DATAFLASH=y
-+CONFIG_SPI_FLASH=y
-+CONFIG_SPI_FLASH_MTD=y
-+CONFIG_SPI_FLASH_WINBOND=y
-+CONFIG_SPI_FLASH_MACRONIX=y
---- a/arch/arm/dts/Makefile	2019-01-15 00:02:36.000000000 +0200
-+++ b/arch/arm/dts/Makefile	2019-05-03 17:50:22.000000000 +0300
-@@ -376,6 +376,7 @@
+--- a/arch/arm/dts/Makefile
++++ b/arch/arm/dts/Makefile
+@@ -519,6 +530,7 @@
  	sun8i-h2-plus-libretech-all-h3-cc.dtb \
  	sun8i-h2-plus-orangepi-r1.dtb \
  	sun8i-h2-plus-orangepi-zero.dtb \
 +	sun8i-h2-plus-orangepi-zero-lts.dtb \
  	sun8i-h3-bananapi-m2-plus.dtb \
- 	sun8i-h3-libretech-all-h3-cc.dtb \
- 	sun8i-h3-nanopi-m1.dtb \
+ 	sun8i-h3-bananapi-m2-plus-v1.2.dtb \
+ 	sun8i-h3-beelink-x2.dtb \
 --- /dev/null
 +++ b/arch/arm/dts/sun8i-h2-plus-orangepi-zero-lts.dts
 @@ -0,0 +1,9 @@
@@ -118,47 +22,17 @@
 +};
 --- /dev/null
 +++ b/configs/orangepi_zero_lts_defconfig
-@@ -0,0 +1,28 @@
+@@ -0,0 +1,13 @@
 +CONFIG_ARM=y
 +CONFIG_ARCH_SUNXI=y
 +CONFIG_SPL=y
 +CONFIG_MACH_SUN8I_H3=y
 +CONFIG_DRAM_CLK=624
-+CONFIG_DRAM_ZQ=3881979
-+CONFIG_DRAM_ODT_EN=y
-+CONFIG_VIDEO_DE2=y
-+CONFIG_NR_DRAM_BANKS=1
++# CONFIG_VIDEO_DE2 is not set
++CONFIG_SPL_SPI_SUNXI=y
 +# CONFIG_SYS_MALLOC_CLEAR_ON_INIT is not set
 +CONFIG_CONSOLE_MUX=y
-+# CONFIG_CMD_FLASH is not set
 +CONFIG_DEFAULT_DEVICE_TREE="sun8i-h2-plus-orangepi-zero-lts"
 +CONFIG_SUN8I_EMAC=y
 +CONFIG_USB_EHCI_HCD=y
-+CONFIG_SYS_USB_EVENT_POLL_VIA_INT_QUEUE=y
-+CONFIG_SPI=y
-+CONFIG_SUN4I_SPI=y
-+CONFIG_CMD_SF=y
-+CONFIG_CMD_SPI=y
-+CONFIG_DM_SPI=y
-+CONFIG_DM_SPI_FLASH=y
-+CONFIG_SPL_SPI_BOOT=y
-+CONFIG_SPI_FLASH_DATAFLASH=y
-+CONFIG_SPI_FLASH=y
-+CONFIG_SPI_FLASH_MTD=y
-+CONFIG_SPI_FLASH_WINBOND=y
-+CONFIG_SPI_FLASH_MACRONIX=y
---- a/board/sunxi/MAINTAINERS	2019-01-15 00:02:36.000000000 +0200
-+++ b/board/sunxi/MAINTAINERS	2019-05-03 17:50:22.000000000 +0300
-@@ -355,6 +355,12 @@
- S:	Maintained
- F:	configs/orangepi_zero_defconfig
- 
-+ORANGEPI ZERO LTS BOARD
-+M:	Icenowy Zheng <icenowy@aosc.xyz>
-+M:	Semen Kreyda <aswerklon@gmail.com>
-+S:	Maintained
-+F:	configs/orangepi_zero_lts_defconfig
-+
- ORANGEPI ZERO PLUS BOARD
- M:	Hauke Mehrtens <hauke@hauke-m.de>
- S:	Maintained
++CONFIG_USB_OHCI_HCD=y
