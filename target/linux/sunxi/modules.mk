@@ -1,6 +1,4 @@
 #
-# Copyright (C) 2013-2016 OpenWrt.org
-#
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 
@@ -30,12 +28,12 @@ define KernelPackage/sunxi-ir
     KCONFIG:= \
 	CONFIG_MEDIA_SUPPORT=y \
 	CONFIG_MEDIA_RC_SUPPORT=y \
-	CONFIG_RC_DEVICES=y \
-	CONFIG_IR_SUNXI \
-	CONFIG_RC_DECODERS=y \
+	CONFIG_IR_SUNXI=m \
 	CONFIG_RC_CORE=m \
+	CONFIG_RC_DECODERS=y \
+	CONFIG_RC_DEVICES=y \
 	CONFIG_RC_MAP=m \
-	CONFIG_LIRC=y \
+	CONFIG_IR_LIRC_CODEC=m \
 	CONFIG_BPF_LIRC_MODE2=y \
 	CONFIG_IR_NEC_DECODER=m \
 	CONFIG_IR_RC5_DECODER=m \
@@ -47,12 +45,14 @@ define KernelPackage/sunxi-ir
 	CONFIG_IR_MCE_KBD_DECODER=m \
 	CONFIG_IR_XMP_DECODER=m \
 	CONFIG_IR_IMON_DECODER=m \
+	CONFIG_IR_RCMM_DECODER=n \
 	CONFIG_IR_IMON_RAW=m \
 	CONFIG_IR_SPI=m \
 	CONFIG_IR_PWM_TX=m \
 	CONFIG_IR_SERIAL=m \
 	CONFIG_IR_SERIAL_TRANSMITTER=y \
 	CONFIG_IR_SIR=m \
+	CONFIG_RC_XBOX_DVD=n \
 	CONFIG_IR_GPIO_TX=m
     FILES:= \
 	$(LINUX_DIR)/drivers/media/rc/gpio-ir-tx.ko \
@@ -66,13 +66,14 @@ define KernelPackage/sunxi-ir
 	$(LINUX_DIR)/drivers/media/rc/ir-sony-decoder.ko \
 	$(LINUX_DIR)/drivers/media/rc/ir-spi.ko \
 	$(LINUX_DIR)/drivers/media/rc/ir-xmp-decoder.ko \
-	$(LINUX_DIR)/drivers/media/rc/lirc_dev.ko \
 	$(LINUX_DIR)/drivers/media/rc/pwm-ir-tx.ko \
-	$(LINUX_DIR)/drivers/media/rc/rc-core.ko \
 	$(LINUX_DIR)/drivers/media/rc/serial_ir.ko \
 	$(LINUX_DIR)/drivers/media/rc/sir_ir.ko \
-	$(LINUX_DIR)/drivers/media/rc/sunxi-cir.ko \
-	$(LINUX_DIR)/drivers/media/rc/keymaps/*.ko
+	$(LINUX_DIR)/drivers/media/rc/rc-core.ko \
+	$(LINUX_DIR)/drivers/media/rc/sunxi-cir.ko
+#	$(LINUX_DIR)/drivers/media/rc/keymaps/*.ko \
+#	$(LINUX_DIR)/drivers/media/rc/rc-core.ko \
+#	$(LINUX_DIR)/drivers/media/rc/lirc_dev.ko
     AUTOLOAD:=$(call AutoLoad,80,sunxi-cir ir-nec-decoder)
 endef
 
@@ -108,21 +109,35 @@ endef
 
 $(eval $(call KernelPackage,sun4i-emac))
 
-
-define KernelPackage/sound-soc-sun4i-codec
-  TITLE:=AllWinner built-in SoC sound support sun4i-codec
+define KernelPackage/sound-soc-sunxi
+  TITLE:=AllWinner built-in SoC sound support
   KCONFIG:=CONFIG_SND_SUN4I_CODEC
   FILES:=$(LINUX_DIR)/sound/soc/sunxi/sun4i-codec.ko
-  AUTOLOAD:=$(call AutoLoad,63,sun4i-codec)
+  AUTOLOAD:=$(call AutoLoad,65,sun4i-codec)
   DEPENDS:=@TARGET_sunxi +kmod-sound-soc-core
   $(call AddDepends/sound)
 endef
 
-define KernelPackage/sound-soc-sun4i-codec/description
+define KernelPackage/sound-soc-sunxi/description
   Kernel support for AllWinner built-in SoC audio sun4i-codec
 endef
 
-$(eval $(call KernelPackage,sound-soc-sun4i-codec))
+$(eval $(call KernelPackage,sound-soc-sunxi))
+
+define KernelPackage/sound-soc-sunxi-spdif
+  TITLE:=Allwinner A10 SPDIF Support
+  KCONFIG:=CONFIG_SND_SUN4I_SPDIF
+  FILES:=$(LINUX_DIR)/sound/soc/sunxi/sun4i-spdif.ko
+  AUTOLOAD:=$(call AutoLoad,65,sun4i-spdif)
+  DEPENDS:=@TARGET_sunxi +kmod-sound-soc-spdif
+  $(call AddDepends/sound)
+endef
+
+define KernelPackage/sound-soc-sunxi-spdif/description
+  Kernel support for Allwinner A10 SPDIF Support
+endef
+
+$(eval $(call KernelPackage,sound-soc-sunxi-spdif))
 
 
 define KernelPackage/sound-soc-sun8i-codec
@@ -141,12 +156,28 @@ endef
 $(eval $(call KernelPackage,sound-soc-sun8i-codec))
 
 
+define KernelPackage/sun8i-adda-pr-regmap
+  TITLE:=AllWinner SoC sound sun4i-spdif
+  KCONFIG:=CONFIG_SND_SUN8I_ADDA_PR_REGMAP
+  FILES:=$(LINUX_DIR)/sound/soc/sunxi/sun8i-adda-pr-regmap.ko
+  AUTOLOAD:=$(call AutoLoad,67,sun8i-adda-pr-regmap)
+  DEPENDS:=@TARGET_sunxi +kmod-sound-soc-core
+  $(call AddDepends/sound)
+endef
+
+define KernelPackage/sun8i-adda-pr-regmap/description
+  Kernel support for AllWinner built-in SoC audio sun8i-adda-pr-regmap
+endef
+
+$(eval $(call KernelPackage,sun8i-adda-pr-regmap))
+
+
 define KernelPackage/sound-soc-sun8i-codec-analog
   TITLE:=AllWinner SoC sound sun8i-codec-analog
   KCONFIG:=CONFIG_SND_SUN8I_CODEC_ANALOG
   FILES:=$(LINUX_DIR)/sound/soc/sunxi/sun8i-codec-analog.ko
   AUTOLOAD:=$(call AutoLoad,67,sun8i-codec-analog)
-  DEPENDS:=@TARGET_sunxi +kmod-sound-soc-core
+  DEPENDS:=@TARGET_sunxi +kmod-sound-soc-core +kmod-sun8i-adda-pr-regmap
   $(call AddDepends/sound)
 endef
 
@@ -188,179 +219,6 @@ endef
 
 $(eval $(call KernelPackage,sound-soc-sun4i-spdif))
 
-###################################################################
-define KernelPackage/thermal-sunxi
-  SUBMENU:=Sunxi Thermal
-  TITLE:=Generic Thermal sysfs driver
-  DEPENDS:=@TARGET_sunxi +kmod-hwmon-core
-  KCONFIG:= \
-	CONFIG_THERMAL=m \
-	CONFIG_THERMAL_DEFAULT_GOV_USER_SPACE=n \
-	CONFIG_THERMAL_GOV_USER_SPACE=n \
-	CONFIG_THERMAL_EMULATION=n
-  FILES:= \
-	$(LINUX_DIR)/drivers/thermal/thermal_sys.ko
-  AUTOLOAD:=$(call AutoProbe,thermal_sys)
-endef
-
-define KernelPackage/thermal/description
- Generic Thermal Sysfs driver offers a generic mechanism for thermal
- management. Usually it's made up of one or more thermal zone and cooling
- device.
-endef
-
-$(eval $(call KernelPackage,thermal-sunxi))
-
-
-define KernelPackage/sun4i-gpadc-iio
-  SUBMENU:=Sunxi Thermal
-  TITLE:=Generic sun4i-gpadc-iio driver
-  DEPENDS:=@TARGET_sunxi +kmod-thermal-sunxi
-  KCONFIG:=CONFIG_SUN4I_GPADC=y \
-	CONFIG_MFD_SUN4I_GPADC=n
-  FILES:= \
-	$(LINUX_DIR)/drivers/iio/adc/sun4i-gpadc-iio.ko
-  AUTOLOAD:=$(call AutoProbe,sun4i-gpadc-iio)
-endef
-
-$(eval $(call KernelPackage,sun4i-gpadc-iio))
-
-
-define KernelPackage/sun8i_ths
-  SUBMENU:=Sunxi Thermal
-  TITLE:=Generic SUN8I_THS driver
-  DEPENDS:=@TARGET_sunxi +kmod-thermal-sunxi
-  KCONFIG:=CONFIG_SUN8I_THS=m
-  FILES:=$(LINUX_DIR)/drivers/thermal/sun8i_ths.ko
-  AUTOLOAD:=$(call AutoProbe,sun8i_ths)
-endef
-
-define KernelPackage/thermal/description
- Generic SUN8I_THS driver offers a generic mechanism for thermal
- management. Usually it's made up of one or more thermal zone and cooling
- device.
-endef
-
-$(eval $(call KernelPackage,sun8i_ths))
-
-
-define KernelPackage/sun50i_h6_ths
-  SUBMENU:=Sunxi Thermal
-  TITLE:=Generic SUN50I_H6_THS driver
-  DEPENDS:=@TARGET_sunxi +kmod-thermal-sunxi
-  KCONFIG:=CONFIG_SUN50I_H6_THS=m
-  FILES:=$(LINUX_DIR)/drivers/thermal/sun50i_h6_ths.ko
-  AUTOLOAD:=$(call AutoProbe,sun50i_h6_ths)
-endef
-
-define KernelPackage/thermal/description
- Generic SUN50I_H6_THS driver offers a generic mechanism for thermal
- management. Usually it's made up of one or more thermal zone and cooling
- device.
-endef
-
-$(eval $(call KernelPackage,sun50i_h6_ths))
-
-
-define KernelPackage/thermal-generic-adc
-  SUBMENU:=Sunxi Thermal
-  TITLE:=Generic GENERIC_ADC_THERMAL driver
-  DEPENDS:=@TARGET_sunxi +kmod-thermal-sunxi
-  KCONFIG:=CONFIG_GENERIC_ADC_THERMAL=m
-  FILES:=$(LINUX_DIR)/drivers/thermal/thermal-generic-adc.ko
-  AUTOLOAD:=$(call AutoProbe,thermal-generic-adc)
-endef
-
-$(eval $(call KernelPackage,thermal-generic-adc))
-
-
-define KernelPackage/arm_big_little
-  SUBMENU:=$(OTHER_MENU)
-  TITLE:=Generic arm_big_little driver
-  DEPENDS:=@TARGET_sunxi +kmod-thermal-sunxi
-  KCONFIG:=CONFIG_ARM_BIG_LITTLE_CPUFREQ=y
-  FILES:=$(LINUX_DIR)/drivers/cpufreq/arm_big_little.ko
-  AUTOLOAD:=$(call AutoProbe,arm_big_little)
-endef
-
-$(eval $(call KernelPackage,arm_big_little))
-
-
-define KernelPackage/arm_big_little_dt
-  SUBMENU:=$(OTHER_MENU)
-  TITLE:=This enables the Generic CPUfreq driver for ARM big.LITTLE platforms.
-  DEPENDS:=@TARGET_sunxi +kmod-thermal-sunxi +kmod-arm_big_little
-  KCONFIG:=CONFIG_ARM_DT_BL_CPUFREQ=y
-  FILES:=$(LINUX_DIR)/drivers/cpufreq/arm_big_little_dt.ko
-  AUTOLOAD:=$(call AutoProbe,arm_big_little_dt)
-endef
-
-$(eval $(call KernelPackage,arm_big_little_dt))
-
-
-define KernelPackage/cpufreq-dt
-  SUBMENU:=$(OTHER_MENU)
-  TITLE:=Generic cpufreq-dt driver
-  DEPENDS:=@TARGET_sunxi +kmod-thermal-sunxi
-  KCONFIG:=CONFIG_CPUFREQ_DT_PLATDEV=y
-  FILES:=$(LINUX_DIR)/drivers/cpufreq/cpufreq-dt.ko
-  AUTOLOAD:=$(call AutoProbe,cpufreq-dt)
-endef
-
-$(eval $(call KernelPackage,cpufreq-dt))
-###################################################################
-
-define KernelPackage/sunxi-i2c
-  SUBMENU:=I2C support
-  TITLE:=Generic sunxi-i2c driver
-  DEPENDS:=@TARGET_sunxi +kmod-i2c-core
-  KCONFIG:=CONFIG_I2C_SUN6I_P2WI=m \
-	CONFIG_I2C_MV64XXX=m
-  FILES:= \
-	$(LINUX_DIR)/drivers/i2c/busses/i2c-mv64xxx.ko
-  AUTOLOAD:=$(call AutoProbe,i2c-mv64xxx)
-endef
-
-define KernelPackage/sunxi-i2c/description
- If you say yes to this option, support will be included for the
- I2C interface from Allwinner Technology sunxi platform.
- 
- This driver can also be built as a module. If so, the module
- will be called i2c-sun6i-p2wi, i2c-mv64xxx.
-endef
-
-$(eval $(call KernelPackage,sunxi-i2c))
-
-######### wireless drivers #########################
-#define KernelPackage/rtl8189es
-#  SUBMENU:=$(WIRELESS_MENU) Test-rtl8189es
-#  TITLE:=RTL8189es test wifi-drivers support
-#  KCONFIG:=CONFIG_RTL8189ES \
-#	CONFIG_WLAN_VENDOR_REALTEK=y
-#  FILES:=$(LINUX_DIR)/drivers/net/wireless/realtek/rtl8189es/8189es.ko
-#  DEPENDS:=@TARGET_sunxi +kmod-usb-core +kmod-usb-net +@DRIVER_11N_SUPPORT +@DRIVER_11AC_SUPPORT
-##  AUTOLOAD:=$(call AutoProbe,rtl8189es)
-#  AUTOLOAD:=$(call AutoLoad,50,8189es)
-#endef
-#
-#$(eval $(call KernelPackage,rtl8189es))
-#####################################################
-
-
-define KernelPackage/pwm-sun4i
-  SUBMENU:=$(OTHER_MENU)
-  TITLE:=Generic pwm-sun4i driver
-  DEPENDS:=@TARGET_sunxi
-  KCONFIG:= \
-	CONFIG_PWM=y \
-	CONFIG_PWM_SYSFS=y \
-	CONFIG_PWM_SUN4I=m
-  FILES:=$(LINUX_DIR)/drivers/pwm/pwm-sun4i.ko
-  AUTOLOAD:=$(call AutoProbe,pwm-sun4i)
-endef
-
-$(eval $(call KernelPackage,pwm-sun4i))
-
 
 define KernelPackage/pwm-regulator
   SUBMENU:=$(OTHER_MENU)
@@ -387,15 +245,16 @@ endef
 
 $(eval $(call KernelPackage,clk-pwm))
 
+## thermal
 
-define KernelPackage/rotary_encoder
-  SUBMENU:=$(OTHER_MENU)
-  TITLE:=Generic rotary_encoder driver
-  DEPENDS:=@TARGET_sunxi +kmod-input-gpio-keys +triggerhappy
-  KCONFIG:= \
-	CONFIG_INPUT_GPIO_ROTARY_ENCODER=m
-  FILES:=$(LINUX_DIR)/drivers/input/misc/rotary_encoder.ko
-  AUTOLOAD:=$(call AutoProbe,rotary_encoder)
+
+define KernelPackage/thermal-generic-adc
+  SUBMENU:=Sunxi Thermal
+  TITLE:=Generic GENERIC_ADC_THERMAL driver
+  DEPENDS:=@TARGET_sunxi
+  KCONFIG:=CONFIG_GENERIC_ADC_THERMAL=m
+  FILES:=$(LINUX_DIR)/drivers/thermal/thermal-generic-adc.ko
+  AUTOLOAD:=$(call AutoProbe,thermal-generic-adc)
 endef
 
-$(eval $(call KernelPackage,rotary_encoder))
+$(eval $(call KernelPackage,thermal-generic-adc))

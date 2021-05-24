@@ -1,0 +1,7 @@
+setenv fdt_high ffffffff
+setenv bootargs console=ttyS0,115200 earlyprintk rootfstype=squashfs mtdparts=spi0.0:512k(uboot),64k(dtb),-(firmware)
+setenv loadprobe sf probe 0
+setenv loaddtb sf read $fdt_addr_r 0x80000 0x10000
+setenv loadkernel sf read $kernel_addr_r 0x90000 0x400000
+setenv uenvcmd run loadprobe \&\& run loadkernel \&\& run loaddtb \&\& bootm $kernel_addr_r - $fdt_addr_r
+run uenvcmd

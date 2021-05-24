@@ -1,0 +1,20 @@
+--- a/include/config_distro_bootcmd.h
++++ b/include/config_distro_bootcmd.h
+@@ -477,7 +480,16 @@
+ 	\
+ 	BOOT_TARGET_DEVICES(BOOTENV_DEV)                                  \
+ 	\
+-	"distro_bootcmd=" BOOTENV_SET_SCSI_NEED_INIT                      \
++	"distro_bootcmd="								\
++	"if sf probe 0; then "								\
++		"setenv fdt_high ffffffff;"						\
++		"setenv bootargs console=ttyS0,115200 earlyprintk rootfstype=squashfs	\
++			mtdparts=spi0.0:512k(uboot),64k(dtb),-(firmware);"		\
++		"sf read 0x43000000 0x80000 0x10000;"					\
++		"sf read 0x42000000 0x90000 0x400000;"					\
++		"bootm 0x42000000 - 0x43000000;"					\
++	"fi; "										\
++		BOOTENV_SET_SCSI_NEED_INIT                                \
+ 		BOOTENV_SET_NVME_NEED_INIT                                \
+ 		BOOTENV_SET_IDE_NEED_INIT                                 \
+ 		BOOTENV_SET_VIRTIO_NEED_INIT                              \

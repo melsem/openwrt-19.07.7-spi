@@ -56214,7 +56214,7 @@ Source-Makefile: feeds/packages/libs/libv4l/Makefile
 Build-Depends: !USE_GLIBC:argp-standalone !BUILD_NLS:libiconv !BUILD_NLS:gettext
 
 Package: libv4l
-Version: 1.20.0-2
+Version: 1.16.8-1
 Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +libpthread +librt +BUILD_NLS:libiconv-full
 Conflicts: 
 Menu-Depends: 
@@ -56224,7 +56224,7 @@ Category: Libraries
 Repository: base
 Title: Video 4 Linux wrapper libraries
 Maintainer: Ted Hess <thess@kitschensync.net>
-Source: v4l-utils-1.20.0.tar.bz2
+Source: v4l-utils-1.16.8.tar.bz2
 License: LGPL-2.1-or-later
 LicenseFiles: COPYING.libv4l
 Type: ipkg
@@ -56245,7 +56245,7 @@ Ted Hess <thess@kitschensync.net>
 @@
 
 Package: v4l-utils
-Version: 1.20.0-2
+Version: 1.16.8-1
 Depends: +libc +GCC_LIBSSP:libssp +USE_GLIBC:librt +USE_GLIBC:libpthread +libv4l +USE_UCLIBCXX:uclibcxx +USE_LIBSTDCXX:libstdcpp +BUILD_NLS:libiconv-full +BUILD_NLS:libintl-full
 Conflicts: 
 Menu-Depends: 
@@ -56255,7 +56255,7 @@ Category: Utilities
 Repository: base
 Title: Video 4 Linux utilities
 Maintainer: Ted Hess <thess@kitschensync.net>
-Source: v4l-utils-1.20.0.tar.bz2
+Source: v4l-utils-1.16.8.tar.bz2
 License: GPL-2.0-or-later
 LicenseFiles: COPYING
 Type: ipkg

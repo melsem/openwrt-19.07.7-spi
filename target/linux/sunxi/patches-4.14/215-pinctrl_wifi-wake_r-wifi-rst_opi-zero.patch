@@ -1,0 +1,44 @@
+--- a/arch/arm/boot/dts/sun8i-h2-plus-orangepi-zero.dts
++++ b/arch/arm/boot/dts/sun8i-h2-plus-orangepi-zero.dts
+@@ -125,6 +155,8 @@
+ 
+ 	wifi_pwrseq: wifi_pwrseq {
+ 		compatible = "mmc-pwrseq-simple";
++		pinctrl-names = "default";
++		pinctrl-0 = <&r_wifi_rst>;
+ 		reset-gpios = <&r_pio 0 7 GPIO_ACTIVE_LOW>;
+ 		post-power-on-delay-ms = <200>;
+ 	};
+@@ -307,11 +327,20 @@
+ 	xr819: sdio_wifi@1 {
+ 		reg = <1>;
+ 		compatible = "xradio,xr819";
++		pinctrl-names = "default";
++		pinctrl-0 = <&wifi_wake>;
+ 		interrupt-parent = <&pio>;
+ 		interrupts = <6 10 IRQ_TYPE_EDGE_RISING>;
+ 		interrupt-names = "host-wake";
+ 	};
+ };
++
++&r_pio {
++	r_wifi_rst: r-wifi-rst {
++		pins = "PL7";
++		function = "gpio_out";
++	};
++};
+ 
+ &mmc1_pins_a {
+ 	bias-pull-up;
+@@ -375,6 +395,11 @@
+ 		pins = "PA7";
+ 		function = "gpio_in";
+ 	};
++
++	wifi_wake: wifi-wake {
++		pins = "PG10";
++		function = "gpio_in";
++	};
+ };
+ 
+ &pwm {

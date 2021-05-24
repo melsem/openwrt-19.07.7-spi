@@ -1,6 +1,7 @@
 $(eval $(call PackageDir,boot-config,boot-config,))
 $(eval $(call PackageDir,i2c-encoder-tda7313,i2c-encoder-tda7313,))
 $(eval $(call PackageDir,i2c_HD44780,i2c_HD44780,))
+$(eval $(call PackageDir,lcd-hd44780,lcd-hd44780,))
 $(eval $(call PackageDir,luci-app-cpufreq_scaling,luci-app-cpufreq_scaling,))
 $(eval $(call PackageDir,luci-app-filebrowser,luci-app-filebrowser,))
 $(eval $(call PackageDir,port_listen,port_listen,))

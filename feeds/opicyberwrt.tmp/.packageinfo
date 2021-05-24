@@ -65,6 +65,26 @@ Description:  LCD monitor for HD44780 over I2C by PCF8574 bus expander.
 @@
 
 
+Source-Makefile: feeds/opicyberwrt/lcd-hd44780/Makefile
+
+Package: kmod-lcd-hd44780
+Submenu: Other modules
+Version: <LINUX_VERSION>+0.1-2
+Depends: 
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: kernel
+Category: Kernel modules
+Title: Kernel driver for hd44780-based LCD display
+Maintainer: 
+Source: 
+Type: ipkg
+Description: 	Kernel driver for access to hd44780-based display via GPIO
+
+@@
+
+
 Source-Makefile: feeds/opicyberwrt/luci-app-cpufreq_scaling/Makefile
 
 Package: luci-app-cpufreq_scaling

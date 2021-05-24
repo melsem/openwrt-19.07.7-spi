@@ -17,32 +17,3 @@
  
  	flash@0 {
  		#address-cells = <1>;
-@@ -172,6 +173,28 @@
- 		compatible = "mxicy,mx25l1606e", "winbond,w25q128";
- 		reg = <0>;
- 		spi-max-frequency = <40000000>;
-+
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <0x01>;
-+			#size-cells = <0x01>;
-+
-+			partition@0 {
-+				label = "uboot";
-+				reg = <0x0 0x80000>;
-+			};
-+
-+			partition@80000 {
-+				label = "dtb";
-+				reg = <0x80000 0x10000>;
-+			};
-+
-+			partition@90000 {
-+				compatible = "firmware";
-+				label = "firmware";
-+				reg = <0x90000 0xf70000>;
-+			};
-+		};
- 	};
- };
- 

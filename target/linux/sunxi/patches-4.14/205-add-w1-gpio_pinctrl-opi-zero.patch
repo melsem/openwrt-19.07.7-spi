@@ -11,7 +11,7 @@
 +		* PWM1/PA6 (PA06) pin on Orange Pi Zero gpio-6
 +		* (0 this is A port, 6 this is gpio-6. for PD14 use  <&pio 3 14 GPIO_ACTIVE_HIGH>)
 +		*/
-+		gpios = <&pio 0 6 GPIO_ACTIVE_HIGH>;
++		gpios = <&pio 0 10 (GPIO_ACTIVE_LOW|GPIO_OPEN_DRAIN)>;
 +		pinctrl-names = "default";
 +		pinctrl-0 = <&w1_pins>;
 +		status = "disabled";
@@ -29,7 +29,7 @@
 +		/*
 +		* PWM1/PA6 (PA06) pin on Orange Pi Zero gpio-6
 +		*/
-+		pins = "PA6";
++		pins = "PA10";
 +		function = "gpio_in";	// in (initially)
 +		pull = <0x00>;		// off
 +	};

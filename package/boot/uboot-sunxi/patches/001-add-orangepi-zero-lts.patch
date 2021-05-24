@@ -10,7 +10,7 @@
  	sun8i-h3-beelink-x2.dtb \
 --- /dev/null
 +++ b/arch/arm/dts/sun8i-h2-plus-orangepi-zero-lts.dts
-@@ -0,0 +1,9 @@
+@@ -0,0 +1,8 @@
 +
 +/* Orange Pi Zero Lts is based on Orange Pi Zero design */
 +#include "sun8i-h2-plus-orangepi-zero.dts"
@@ -18,7 +18,6 @@
 +/ {
 +	model = "Xunlong Orange Pi Zero Lts";
 +	compatible = "xunlong,orangepi-zero-lts", "allwinner,sun8i-h2-plus";
-+
 +};
 --- /dev/null
 +++ b/configs/orangepi_zero_lts_defconfig
