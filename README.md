@@ -2,6 +2,7 @@ The develope "tr4bl3" (http://4pda.ru/forum/index.php?showuser=1177645).
 -------------------
 Example write in spi-flash 16MB for orangepi-zero.
 ----
+https://github.com/melsem/openwrt-19.07.7-spi/blob/master/make-menuconfig.png
 1. Download the usual firmware image for MMС: https://downloads.openwrt.org/releases/19.07.7/targets/sunxi/cortexa7/openwrt-19.07.7-sunxi-cortexa7-sun8i-h2-plus-orangepi-zero-ext4-sdcard.img.gz
 
 2. Record it on MMС.
