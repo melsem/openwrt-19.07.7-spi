@@ -146,6 +146,27 @@ define U-Boot/nanopi_neo
 endef
 
 define U-Boot/orangepi_r1
+  BUILD_SUBTARGET:=cortexspia7
+  NAME:=Orange Pi R1 (H2+)
+  BUILD_DEVICES:=sun8i-h2-plus-orangepi-r1
+  UENV:=spi16mb
+endef
+
+define U-Boot/orangepi_zero
+  BUILD_SUBTARGET:=cortexspia7
+  NAME:=Orange Pi Zero (H2+)
+  BUILD_DEVICES:=sun8i-h2-plus-orangepi-zero
+  UENV:=spi16mb
+endef
+
+define U-Boot/orangepi_zero_lts
+  BUILD_SUBTARGET:=cortexspia7
+  NAME:=Orange Pi Zero Lts (H2+)
+  BUILD_DEVICES:=sun8i-h2-plus-orangepi-zero-lts
+  UENV:=spi16mb
+endef
+
+define U-Boot/orangepi_r1
   BUILD_SUBTARGET:=cortexa7
   NAME:=Orange Pi R1 (H2+)
   BUILD_DEVICES:=sun8i-h2-plus-orangepi-r1
@@ -167,21 +188,18 @@ define U-Boot/orangepi_r1
   BUILD_SUBTARGET:=cortexspia7
   NAME:=Orange Pi R1 (H2+)
   BUILD_DEVICES:=sun8i-h2-plus-orangepi-r1
-  UENV:=spi16mb
 endef
 
 define U-Boot/orangepi_zero
   BUILD_SUBTARGET:=cortexspia7
   NAME:=Orange Pi Zero (H2+)
   BUILD_DEVICES:=sun8i-h2-plus-orangepi-zero
-  UENV:=spi16mb
 endef
 
 define U-Boot/orangepi_zero_lts
   BUILD_SUBTARGET:=cortexspia7
   NAME:=Orange Pi Zero Lts (H2+)
   BUILD_DEVICES:=sun8i-h2-plus-orangepi-zero-lts
-  UENV:=spi16mb
 endef
 
 define U-Boot/orangepi_one

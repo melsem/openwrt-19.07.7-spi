@@ -1,19 +1,27 @@
 --- a/include/config_distro_bootcmd.h
 +++ b/include/config_distro_bootcmd.h
-@@ -477,7 +480,16 @@
+@@ -477,7 +480,24 @@
  	\
  	BOOT_TARGET_DEVICES(BOOTENV_DEV)                                  \
  	\
 -	"distro_bootcmd=" BOOTENV_SET_SCSI_NEED_INIT                      \
-+	"distro_bootcmd="								\
-+	"if sf probe 0; then "								\
-+		"setenv fdt_high ffffffff;"						\
-+		"setenv bootargs console=ttyS0,115200 earlyprintk rootfstype=squashfs	\
-+			mtdparts=spi0.0:512k(uboot),64k(dtb),-(firmware);"		\
-+		"sf read 0x43000000 0x80000 0x10000;"					\
-+		"sf read 0x42000000 0x90000 0x400000;"					\
-+		"bootm 0x42000000 - 0x43000000;"					\
-+	"fi; "										\
++	"distro_bootcmd="				\
++	"if fatload mmc 0 0x42000000 uImage; then "	\
++		"echo --- MMC OK ---; "			\
++		"setenv fdt_high ffffffff;"		\
++		"fatload mmc 0 0x43000000 dtb;"		\
++		"setenv bootargs console=ttyS0,115200 earlyprintk root=/dev/mmcblk0p2 \
++			rootwait;"			\
++		"bootm 0x42000000 - 0x43000000;"	\
++	"elif sf probe 0; then "			\
++		"echo --- SPI OK ---; "			\
++		"setenv fdt_high ffffffff;"		\
++		"setenv bootargs console=ttyS0,115200 earlyprintk rootfstype=squashfs \
++			mtdparts=spi0.0:512k(uboot),64k(dtb),-(firmware);" \
++		"sf read 0x43000000 0x80000 0x10000;"	\
++		"sf read 0x42000000 0x90000 0x400000;"	\
++		"bootm 0x42000000 - 0x43000000;"	\
++	"fi; "						\
 +		BOOTENV_SET_SCSI_NEED_INIT                                \
  		BOOTENV_SET_NVME_NEED_INIT                                \
  		BOOTENV_SET_IDE_NEED_INIT                                 \
